@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let text = 'Heading<br>zdq';
+	export let data: { text: string };
 </script>
 
-<div>{@html text}</div>
+<div>{@html data.text}</div>
