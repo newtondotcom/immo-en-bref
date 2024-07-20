@@ -7,6 +7,7 @@ import {
 	GITHUB_EMAIL
 } from '$env/static/private';
 import { Octokit } from 'octokit';
+import type { FileCommit } from '../../../ambient';
 
 const articles_path = `static/`;
 
@@ -19,7 +20,7 @@ export async function POST({ request, cookies }) {
 	const octokit = new Octokit({
 		auth: 'YOUR-TOKEN'
 	});
-	await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+	const commit: FileCommit = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
 		owner: GITHUB_USERNAME,
 		repo: GITHUB_REPO,
 		path: articles_path + name,
