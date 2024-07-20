@@ -1,6 +1,6 @@
 <script lang="ts">
 	import EditorJS from '@editorjs/editorjs';
-	import { default as Header2 } from '@editorjs/header';
+	import Header from '@editorjs/header';
 	import SimpleImage from '@editorjs/simple-image';
 	import Quote from '@editorjs/quote';
 	import ImageTool from '@editorjs/image';
@@ -11,7 +11,7 @@
 
 	const editor = new EditorJS({
 		tools: {
-			image: SimpleImage,
+			header: Header,
 			list: {
 				class: NestedList,
 				inlineToolbar: true,
@@ -23,9 +23,28 @@
 				class: Checklist,
 				inlineToolbar: true
 			},
-			header: Header2,
-			quote: Quote
-		}
+			quote: Quote,
+			image: {
+				class: SimpleImage,
+				inlineToolbar: true
+			}
+		},
+
+		onReady: () => {
+			console.log('Editor.js is ready to work!');
+		},
+
+		/*
+		onChange: (api, event) => {
+			console.log('Now I know that Editor\'s content changed!', event)
+		},
+		*/
+
+		data: {},
+
+		autofocus: true,
+
+		placeholder: 'Write your beautiful article here!'
 	});
 
 	async function save() {
