@@ -48,6 +48,7 @@
 		"@editorjs/simple-image": "^1.6.0",
 		"bits-ui": "^0.21.12",
 		"clsx": "^2.1.1",
+		"octokit": "^4.0.2",
 		"tailwind-merge": "^2.4.0",
 		"tailwind-variants": "^0.2.1"
 	},
