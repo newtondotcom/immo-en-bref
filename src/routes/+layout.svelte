@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot></slot>
+<header class=""></header>
+<slot />
+<footer class=""></footer>
