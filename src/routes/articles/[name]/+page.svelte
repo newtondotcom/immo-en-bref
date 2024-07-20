@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Header from '$lib/components/editor/Header.svelte';
+	import Image from '$lib/components/editor/Image.svelte';
 	import Paragraph from '$lib/components/editor/Paragraph.svelte';
+	import Quote from '$lib/components/editor/Quote.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -28,7 +30,29 @@
 				id: 'Z5Md8vsAdI',
 				type: 'paragraph',
 				data: {
-					text: 'Ceci est encore un test<br>'
+					text: 'Ceci est encore un test<br> zdq<b>dzqd</b>'
+				}
+			},
+			{
+				id: 'anDCHE_MXS',
+				type: 'quote',
+				data: {
+					text: 'Test',
+					caption: 'test de quote<br>',
+					alignment: 'left'
+				}
+			},
+			{
+				id: 'hZAjSnqYMX',
+				type: 'image',
+				data: {
+					file: {
+						url: '/favicon.png'
+					},
+					withBorder: false,
+					withBackground: false,
+					stretched: false,
+					caption: 'CodeX Code Camp 2019'
 				}
 			}
 		],
@@ -38,7 +62,19 @@
 	let show = false;
 </script>
 
-{#if show}
-	<Header />
-	<Paragraph />
-{/if}
+<div class="px-10 py-4">
+	{#each schema.blocks as block}
+		{#if block.type === 'header'}
+			<Header data={block.data} />
+		{/if}
+		{#if block.type === 'paragraph'}
+			<Paragraph data={block.data} />
+		{/if}
+		{#if block.type === 'quote'}
+			<Quote data={block.data} />
+		{/if}
+		{#if block.type === 'image'}
+			<Image data={block.data} />
+		{/if}
+	{/each}
+</div>
