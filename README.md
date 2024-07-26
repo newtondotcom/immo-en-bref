@@ -1,75 +1,9 @@
-# Nuxt 3 Minimal Starter
+# immo-en-bref
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+🏡 the website for a real estate journalist
 
-## Setup
+The website is based on [editor.js](https://github.com/codex-team/editor.js?tab=readme-ov-file) to write articles. It features a real time editor which gives a direct preview on the article.
 
-Make sure to install the dependencies:
+## Architecture
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Using [editor.js](https://github.com/codex-team/editor.js?tab=readme-ov-file), the novice user can edit this article. Once they are done, the article (under the `json` format) will be saved to their Github account using Github's API and will also be saved on the server current runtime.
