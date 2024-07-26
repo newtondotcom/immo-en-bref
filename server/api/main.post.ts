@@ -7,6 +7,8 @@ export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
 	const { name, data } = body;
 
+	// PROTECT API ENDPOINT
+
 	const commit_message = `Add article named: "${name}"`;
 
 	const articles_path = 'articles';
