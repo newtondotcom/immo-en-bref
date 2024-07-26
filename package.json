@@ -1,35 +1,36 @@
 {
-  "name": "immo-en-bref",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@editorjs/editorjs": "^2.30.2",
-    "@editorjs/header": "^2.8.7",
-    "@editorjs/quote": "^2.6.0",
-    "@editorjs/simple-image": "^1.6.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "lucide-vue-next": "^0.416.0",
-    "nuxt": "^3.12.4",
-    "radix-vue": "^1.9.2",
-    "shadcn-nuxt": "^0.10.4",
-    "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7",
-    "vue": "latest"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "husky": "^9.1.2",
-    "prettier": "^3.3.3",
-    "pretty-quick": "^4.0.0",
-    "typescript": "^5.5.4"
-  }
+	"name": "immo-en-bref",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"@editorjs/editorjs": "^2.30.2",
+		"@editorjs/header": "^2.8.7",
+		"@editorjs/quote": "^2.6.0",
+		"@editorjs/simple-image": "^1.6.0",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.1",
+		"lucide-vue-next": "^0.416.0",
+		"nuxt": "^3.12.4",
+		"radix-vue": "^1.9.2",
+		"shadcn-nuxt": "^0.10.4",
+		"tailwind-merge": "^2.4.0",
+		"tailwindcss-animate": "^1.0.7",
+		"vue": "latest"
+	},
+	"devDependencies": {
+		"@nuxtjs/tailwindcss": "^6.12.1",
+		"husky": "^9.1.2",
+		"prettier": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.5",
+		"pretty-quick": "^4.0.0",
+		"typescript": "^5.5.4"
+	}
 }
