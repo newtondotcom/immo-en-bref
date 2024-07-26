@@ -1,0 +1,28 @@
+{
+  "name": "immo-en-bref",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.30.2",
+    "@editorjs/header": "^2.8.7",
+    "@editorjs/quote": "^2.6.0",
+    "@editorjs/simple-image": "^1.6.0",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "nuxt": "^3.12.4",
+    "shadcn-nuxt": "^0.10.4",
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "husky": "^9.1.2",
+    "prettier": "^3.3.3",
+    "pretty-quick": "^4.0.0",
+    "typescript": "^5.5.4"
+  }
+}
