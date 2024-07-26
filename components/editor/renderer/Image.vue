@@ -10,10 +10,10 @@
   </template>
   
   <script lang="ts" setup>
-  import { cn } from '$lib/utils';
+  import { cn } from '~/lib/utils';
   import type { ImageData } from '@editorjs/simple-image';
   
-  const props = defineProps({
+  defineProps({
     data: {
       type: Object as PropType<ImageData>,
       required: true
