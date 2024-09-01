@@ -5,8 +5,8 @@ const name = route.params.name;
 const schema = ref({});
 
 onMounted(async () => {
-	const data = await $fetch('/api/main', {
-		query: { name: name }
+	const data = await $fetch('/api/article', {
+		query: { name }
 	});
 	console.log(data);
 	schema.value = data;
