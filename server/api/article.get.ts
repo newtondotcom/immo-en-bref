@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
         return { content, date: lastModifiedTime };
     } catch (error) {
         setResponseStatus(event, 404);
+        console.error(error);
         return 'Not found';
     }
 });

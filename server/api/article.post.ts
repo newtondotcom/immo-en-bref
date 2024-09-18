@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     // Update on Github
     let commit_message = `Add article named: "${name}"`;
     const articles_path = 'articles/';
-    const file_path = articles_path + name;
+    const file_path = articles_path + name + '.html';
 
     const data_base64 = Buffer.from(data).toString('base64');
 

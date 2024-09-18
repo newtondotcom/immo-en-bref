@@ -19,7 +19,7 @@
                 </TooltipProvider>
             </div>
             <ul class="">
-                <li @click="select(article.id)" v-for="article in articles">
+                <li @click="select(article.name)" v-for="article in articles">
                     {{ capitalizeFirstLetter(article.name) }}
                 </li>
             </ul>

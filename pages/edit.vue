@@ -28,7 +28,7 @@
 
         <AlertDialog>
             <AlertDialogTrigger>
-                <Button class="mx-1" variant="outline">
+                <Button class="mx-1" variant="outline" :disabled="currentArticle == ''">
                     Supprimer l'article
                     <Trash class="h-4 w-4" />
                 </Button>
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
     import { Buffer } from 'buffer';
-    import { urlizeName } from '~/lib/utils';
+    import { unurlizeName, urlizeName } from '~/lib/utils';
     import { Trash } from 'lucide-vue-next';
 
     const editionNonSaved = ref(false);
@@ -70,14 +70,14 @@
 
     async function getArticles() {
         const data = await $fetch('/api/list');
-        data.listDir.map((article) => articles.value.push({ name: article }));
+        data.listDir.map((article) => articles.value.push({ name: unurlizeName(article) }));
     }
 
     getArticles();
 
     async function select(name: string) {
         const data = await $fetch('/api/article', {
-            query: { name },
+            query: { name: urlizeName(name) },
         });
         html.value = Buffer.from(data.content, 'base64').toString('utf-8');
         currentArticle.value = name;
@@ -95,9 +95,9 @@
     async function del() {
         const data = await $fetch('/api/article', {
             method: 'DELETE',
-            query: { name: currentArticle.value },
+            query: { name: urlizeName(currentArticle.value) },
         });
-        articles.value = articles.value.filter((article) => article.name != name);
+        articles.value = articles.value.filter((article) => article.name != currentArticle.value);
     }
 
     // PROTECT WITH AUTH
