@@ -1,6 +1,6 @@
 <template>
     <header class=""></header>
-    <div>
+    <div class="min-h-screen">
         <slot />
     </div>
     <footer class="bg-secondary w-full">
