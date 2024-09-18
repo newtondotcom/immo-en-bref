@@ -1,6 +1,6 @@
 import { Octokit } from 'octokit';
 import { FileCommit } from '~/types/types';
-import fs from 'fs';
+import fs from 'node:fs';
 
 export default defineEventHandler(async (event) => {
 	const config = useRuntimeConfig();
@@ -9,34 +9,63 @@ export default defineEventHandler(async (event) => {
 
 	// PROTECT API ENDPOINT
 
-	const commit_message = `Add article named: "${name}"`;
+	// Update on Github
+	let commit_message = `Add article named: "${name}"`;
+	const articles_path = 'articles/';
+	const file_path = articles_path + name;
 
-	const articles_path = 'articles';
+	const data_base64 = Buffer.from(data).toString('base64');
 
-	const data_base64 = Buffer.from(JSON.stringify(data)).toString('base64');
-
-	// save the file to github
+	// save the file to GitHub
 	const octokit = new Octokit({
-		auth: 'YOUR-TOKEN'
-	});
-	const commit: FileCommit = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-		owner: config.GITHUB_USERNAME,
-		repo: config.GITHUB_REPO,
-		path: articles_path + name,
-		message: commit_message,
-		committer: {
-			name: config.GITHUB_USERNAME,
-			email: config.GITHUB_EMAIL
-		},
-		content: data_base64, // base64 encoded file content
-		headers: {
-			'X-GitHub-Api-Version': '2022-11-28'
-		}
+		auth: config.GITHUB_TOKEN
 	});
 
-	// save the file to the local filesystem
-	const file_name = articles_path + name + '.json';
-	await fs.writeFileSync(file_name, data);
-	setResponseStatus(event, 200);
-	return 'success';
+	// Get the current file SHA
+	let fileSha = null;
+	try {
+		const { data: existingFile } = await octokit.request(
+			'GET /repos/{owner}/{repo}/contents/{path}',
+			{
+				owner: config.GITHUB_USERNAME,
+				repo: config.GITHUB_REPO,
+				path: file_path,
+				headers: {
+					'X-GitHub-Api-Version': '2022-11-28'
+				}
+			}
+		);
+		fileSha = existingFile.sha;
+		if (existingFile.content) {
+			commit_message = `Update article named: "${name}"`;
+		}
+	} catch (error) {
+		if (error.status !== 404) {
+			throw error;
+		}
+	}
+
+	try {
+		await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+			owner: config.GITHUB_USERNAME,
+			repo: config.GITHUB_REPO,
+			path: file_path,
+			message: commit_message,
+			committer: {
+				name: config.GITHUB_USERNAME,
+				email: config.GITHUB_EMAIL
+			},
+			content: data_base64,
+			sha: fileSha
+		});
+		// save the file to the local filesystem
+		const file_name = articles_path + name + '.html';
+		await fs.writeFileSync(file_name, data);
+		setResponseStatus(event, 200);
+		return 'success';
+	} catch (error) {
+		setResponseStatus(event, 500);
+		console.error(error);
+		return 'error';
+	}
 });
