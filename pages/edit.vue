@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-row">
-		<EditorListArticles :articles />
+		<EditorListArticles :articles :select :create />
 
 		<div class="flex w-[40vw] flex-col border-2 bg-neutral-50 px-1 py-1">
 			<ToggleGroup type="multiple" v-if="editor">
@@ -120,7 +120,7 @@
 	</div>
 
 	<div
-		class="fixed bottom-0 left-0 right-0 z-10 flex h-[50px] items-center justify-center border border-orange-500"
+		class="fixed bottom-0 left-0 right-0 z-10 flex h-[50px] items-center justify-center bg-secondary"
 	>
 		<Button class="mx-1" :disabled="!editionNonSaved" @click="save" variant="secondary">
 			Annuler les modifications
@@ -213,6 +213,21 @@ const articles = ref([
 		name: 'taux'
 	}
 ]);
+
+async function select(id: string) {
+	const data = await $fetch('/api/article', {
+		query: { id }
+	});
+	editor.value?.setContent(data);
+}
+
+async function create(name: string) {
+	const data = await $fetch('/api/article', {
+		method: 'POST',
+		body: { name, date: '' }
+	});
+	articles.value.push(data);
+}
 
 onBeforeUnmount(() => {
 	editor.value?.destroy();
