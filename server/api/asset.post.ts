@@ -57,9 +57,6 @@ export default defineEventHandler(async (event) => {
             content: data_base64,
             sha: fileSha,
         });
-        // save the file to the local filesystem
-        const file_name = assets_path + name + '.html';
-        await fs.writeFileSync(file_name, data);
         setResponseStatus(event, 200);
         return 'success';
     } catch (error) {

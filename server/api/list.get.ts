@@ -5,6 +5,7 @@ const extension = '.html';
 
 export default defineEventHandler(async (event) => {
     try {
+        // we must list without relying on local fs
         let listDir = fs.readdirSync(articles_path);
         listDir = listDir.filter((name) => name.endsWith(extension));
         listDir = listDir.map((name) => name.slice(0, -extension.length));
