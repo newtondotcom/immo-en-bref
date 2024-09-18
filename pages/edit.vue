@@ -222,6 +222,7 @@ async function select(id: string) {
 }
 
 async function create(name: string) {
+	const nameUrl = urlizeName(name);
 	const data = await $fetch('/api/article', {
 		method: 'POST',
 		body: { name, date: '' }
