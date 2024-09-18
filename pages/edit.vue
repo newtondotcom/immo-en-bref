@@ -198,6 +198,11 @@ const editionNonSaved = ref(true);
 
 async function save() {
 	console.log(html.value);
+	const data = await $fetch('/api/article', {
+		method: 'POST',
+		body: { name: 'test', data: html.value }
+	});
+	console.log(data);
 }
 
 const articles = ref([
