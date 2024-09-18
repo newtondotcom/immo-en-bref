@@ -14,6 +14,10 @@ export default defineNuxtConfig({
         GITHUB_REPO: process.env.GITHUB_REPO,
         GITHUB_BRANCH: process.env.GITHUB_BRANCH,
         GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+        ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+        SEED: process.env.SEED,
+        PASSWORD_ADMIN: process.env.PASSWORD_ADMIN,
+        ADMIN_USERNAME: process.env.ADMIN_USERNAME,
     },
     tailwindcss: {
         cssPath: ['~/assets/css/tailwind.css', { injectPosition: 'first' }],
