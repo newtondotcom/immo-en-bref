@@ -45,18 +45,10 @@ import { capitalizeFirstLetter } from '~/lib/utils';
 import { Plus } from 'lucide-vue-next';
 const name = ref<string>('');
 
-defineProps({
-	articles: {
-		type: Object,
-		required: true
-	},
-	select: {
-		type: Function,
-		required: true
-	},
-	create: {
-		type: Function,
-		required: true
-	}
-});
+interface ListArticlesProps {
+	articles: Array<{ name: string; id: string }>;
+	select: (id: string) => void;
+	create: (name: string) => void;
+}
+const props = defineProps<ListArticlesProps>();
 </script>
