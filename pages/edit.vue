@@ -25,11 +25,34 @@
             Annuler les modifications
         </Button>
         <Button class="mx-1" :disabled="!editionNonSaved" @click="save">Sauvegarder</Button>
+
+        <AlertDialog>
+            <AlertDialogTrigger>
+                <Button class="mx-1" variant="outline">
+                    Supprimer l'article
+                    <Trash class="h-4 w-4" />
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Suppresion d'un article</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Êtes-vous sûr de vouloir supprimer cet article ?
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                    <AlertDialogAction @click="del()">Supprimer</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </div>
 </template>
 
 <script setup lang="ts">
+    import { Buffer } from 'buffer';
     import { urlizeName } from '~/lib/utils';
+    import { Trash } from 'lucide-vue-next';
 
     const editionNonSaved = ref(false);
     const html = ref('');
@@ -56,8 +79,7 @@
         const data = await $fetch('/api/article', {
             query: { name },
         });
-        editor.value?.setContent(data);
-        html.value = date.content;
+        html.value = Buffer.from(data.content, 'base64').toString('utf-8');
         currentArticle.value = name;
     }
 
@@ -68,6 +90,14 @@
             body: { name: nameUrl, data: '' },
         });
         articles.value.push({ name });
+    }
+
+    async function del() {
+        const data = await $fetch('/api/article', {
+            method: 'DELETE',
+            query: { name: currentArticle.value },
+        });
+        articles.value = articles.value.filter((article) => article.name != name);
     }
 
     // PROTECT WITH AUTH
