@@ -6,9 +6,8 @@ export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const name = query.name;
 
-	const content = fs.readFileSync(articles_path + name + '.json', 'utf-8');
-	const json = JSON.parse(content);
+	const content = fs.readFileSync(articles_path + name + '.html', 'utf-8');
 
 	setResponseStatus(event, 200);
-	return json;
+	return content;
 });
