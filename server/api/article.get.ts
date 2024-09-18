@@ -6,10 +6,13 @@ export default defineEventHandler(async (event) => {
 	const query = getQuery(event);
 	const name = query.name;
 	try {
-		const content = fs.readFileSync(articles_path + name + '.html', 'utf-8');
+		const filePath = articles_path + name + '.html';
+		const content = fs.readFileSync(filePath);
+		const stats = fs.statSync(filePath);
+		const lastModifiedTime = new Date(stats.mtime);
 
 		setResponseStatus(event, 200);
-		return content;
+		return { content, date: lastModifiedTime };
 	} catch (error) {
 		setResponseStatus(event, 404);
 		return 'Not found';
