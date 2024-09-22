@@ -21,15 +21,16 @@
     <div
         class="fixed bottom-0 left-0 right-0 z-10 flex h-[50px] items-center justify-center bg-secondary"
     >
-        <Button class="mx-1" :disabled="!editionNonSaved" @click="save" variant="secondary">
+        <Button class="mx-1" :disabled="!editionNonSaved" variant="secondary">
             Annuler les modifications
         </Button>
-        <Button class="mx-1" :disabled="!editionNonSaved" @click="save">Sauvegarder</Button>
+        <Button class="mx-1" :disabled="!editionNonSaved" @click="save">
+            <Save class="h-4 w-4" />
+        </Button>
 
         <AlertDialog>
             <AlertDialogTrigger>
                 <Button class="mx-1" variant="outline" :disabled="currentArticle == ''">
-                    Supprimer l'article
                     <Trash class="h-4 w-4" />
                 </Button>
             </AlertDialogTrigger>
@@ -51,36 +52,32 @@
 
 <script setup lang="ts">
     import { Buffer } from 'buffer';
+    import { useToast } from '@/components/ui/toast/use-toast';
     import { unurlizeName, urlizeName } from '~/lib/utils';
-    import { Trash } from 'lucide-vue-next';
+    import { Save, Trash } from 'lucide-vue-next';
+
+    const { toast } = useToast();
 
     const editionNonSaved = ref(false);
     const html = ref('');
 
+    // the name is already urlized
     const currentArticle = ref('');
 
-    async function save() {
-        const data = await $fetch('/api/article', {
-            method: 'POST',
-            body: { name: 'test', data: html.value },
-        });
-    }
-
+    // names are not urlized
     const articles = ref([]);
 
     async function getArticles() {
         const data = await $fetch('/api/list');
-        data.listDir.map((article) => articles.value.push({ name: unurlizeName(article) }));
+        data.list.map((article) => articles.value.push({ name: unurlizeName(article.title) }));
     }
-
-    getArticles();
 
     async function select(name: string) {
         const data = await $fetch('/api/article', {
             query: { name: urlizeName(name) },
         });
-        html.value = Buffer.from(data.content, 'base64').toString('utf-8');
-        currentArticle.value = name;
+        html.value = data.article.content;
+        currentArticle.value = urlizeName(name);
     }
 
     async function create(name: string) {
@@ -89,16 +86,40 @@
             method: 'POST',
             body: { name: nameUrl, data: '' },
         });
+        currentArticle.value = '';
         articles.value.push({ name });
+        toast({
+            title: 'Création',
+            description: 'Article créé',
+        });
     }
 
     async function del() {
         const data = await $fetch('/api/article', {
             method: 'DELETE',
-            query: { name: urlizeName(currentArticle.value) },
+            query: { name: currentArticle.value },
         });
-        articles.value = articles.value.filter((article) => article.name != currentArticle.value);
+        articles.value = articles.value.filter(
+            (article) => article.name != unurlizeName(currentArticle.value),
+        );
+        currentArticle.value = '';
+        toast({
+            title: 'Suppression',
+            description: 'Article supprimé',
+        });
     }
 
-    // PROTECT WITH AUTH
+    async function save() {
+        const data = await $fetch('/api/article', {
+            method: 'POST',
+            body: { name: currentArticle.value, data: html.value },
+        });
+        toast({
+            title: 'Sauvegarde',
+            description: 'Article sauvegardé',
+        });
+        editionNonSaved.value = false;
+    }
+
+    getArticles();
 </script>

@@ -18,7 +18,7 @@
                 </div>
             </CardContent>
             <CardFooter>
-                <Button @click="auth" class="w-full">Create account</Button>
+                <Button @click="auth" class="w-full">Se connecter</Button>
             </CardFooter>
         </Card>
     </section>
@@ -27,10 +27,10 @@
 <script setup lang="ts">
     import { useToast } from '@/components/ui/toast/use-toast';
 
+    const { toast } = useToast();
+
     const username = ref('');
     const password = ref('');
-
-    const { toast } = useToast();
 
     async function auth() {
         try {

@@ -14,8 +14,8 @@
     const data = await $fetch('/api/article', {
         query: { name },
     });
-    content.value = Buffer.from(data.content, 'base64').toString('utf-8');
-    date.value = new Date(data.date);
+    content.value = data.article.content;
+    date.value = new Date(data.article.date);
 
     useSeoMeta({
         title: nameHuman.value,

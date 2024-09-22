@@ -1,16 +1,14 @@
-import fs from 'fs';
-
-const articles_path = 'articles/';
-const extension = '.html';
+import prisma from '../data/prisma';
 
 export default defineEventHandler(async (event) => {
     try {
-        // we must list without relying on local fs
-        let listDir = fs.readdirSync(articles_path);
-        listDir = listDir.filter((name) => name.endsWith(extension));
-        listDir = listDir.map((name) => name.slice(0, -extension.length));
+        const list = await prisma.article.findMany({
+            where: {
+                deleted_at: null,
+            },
+        });
         setResponseStatus(event, 200);
-        return { listDir };
+        return { list };
     } catch (error) {
         setResponseStatus(event, 404);
         return 'Not found';

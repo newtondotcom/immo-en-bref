@@ -1,18 +1,20 @@
 import fs from 'fs';
 
+import prisma from '../data/prisma';
+
 const articles_path = 'articles/';
 
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     const name = query.name;
     try {
-        const filePath = articles_path + name + '.html';
-        const content = fs.readFileSync(filePath);
-        const stats = fs.statSync(filePath);
-        const lastModifiedTime = new Date(stats.mtime);
-
+        const article = await prisma.article.findUnique({
+            where: {
+                title: name,
+            },
+        });
         setResponseStatus(event, 200);
-        return { content, date: lastModifiedTime };
+        return { article };
     } catch (error) {
         setResponseStatus(event, 404);
         console.error(error);

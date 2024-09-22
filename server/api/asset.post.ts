@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
                 headers: {
                     'X-GitHub-Api-Version': '2022-11-28',
                 },
+                ref: config.GITHUB_BRANCH,
             },
         );
         fileSha = existingFile.sha;
@@ -48,6 +49,7 @@ export default defineEventHandler(async (event) => {
         await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
             owner: config.GITHUB_USERNAME,
             repo: config.GITHUB_REPO,
+            branch: config.GITHUB_BRANCH,
             path: file_path,
             message: commit_message,
             committer: {
