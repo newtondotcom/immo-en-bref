@@ -1,141 +1,143 @@
 <template>
-    <div class="flex w-[40vw] flex-col border-2 bg-neutral-50 px-1 py-1">
-        <ToggleGroup type="multiple" v-if="editor">
-            <ToggleGroupItem
+    <div class="flex w-[40vw] flex-col border-2 bg-white px-1 py-1">
+        <div class="flex flex-wrap" v-if="editor">
+            <Button
                 value="strike"
                 aria-label="Toggle strike"
                 @click="editor.chain().focus().toggleStrike().run()"
-                :pressed="editor.isActive('strike')"
+                :variant="editor.isActive('strike') ? 'outline' : 'ghost'"
             >
                 <Strikethrough class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="code"
                 aria-label="Toggle code"
                 @click="editor.chain().focus().toggleCode().run()"
-                :pressed="editor.isActive('code')"
+                :variant="editor.isActive('code') ? 'outline' : 'ghost'"
             >
                 <Code class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="h1"
                 aria-label="Toggle heading level 1"
                 @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-                :pressed="editor.isActive('heading', { level: 1 })"
+                :variant="editor.isActive('heading', { level: 1 }) ? 'outline' : 'ghost'"
             >
                 <Heading1 class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="h2"
                 aria-label="Toggle heading level 2"
                 @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-                :pressed="editor.isActive('heading', { level: 2 })"
+                :variant="editor.isActive('heading', { level: 2 }) ? 'outline' : 'ghost'"
             >
-                <Heading1 class="h-4 w-4" />
-            </ToggleGroupItem>
+                <Heading2 class="h-4 w-4" />
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="h3"
                 aria-label="Toggle heading level 3"
                 @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-                :pressed="editor.isActive('heading', { level: 3 })"
+                :variant="editor.isActive('heading', { level: 3 }) ? 'outline' : 'ghost'"
             >
                 <Heading3 class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="bulletList"
                 aria-label="Toggle bullet list"
                 @click="editor.chain().focus().toggleBulletList().run()"
-                :pressed="editor.isActive('bulletList')"
+                :variant="editor.isActive('bulletList') ? 'outline' : 'ghost'"
             >
                 <List class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="orderedList"
                 aria-label="Toggle ordered list"
                 @click="editor.chain().focus().toggleOrderedList().run()"
-                :pressed="editor.isActive('orderedList')"
+                :variant="editor.isActive('orderedList') ? 'outline' : 'ghost'"
             >
                 <ListOrdered class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="blockquote"
                 aria-label="Toggle blockquote"
                 @click="editor.chain().focus().toggleBlockquote().run()"
-                :pressed="editor.isActive('blockquote')"
+                :variant="editor.isActive('blockquote') ? 'outline' : 'ghost'"
             >
                 <Quote class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="codeBlock"
                 aria-label="Toggle code block"
                 @click="editor.chain().focus().toggleCodeBlock().run()"
-                :pressed="editor.isActive('codeBlock')"
+                :variant="editor.isActive('codeBlock') ? 'outline' : 'ghost'"
             >
                 <Code class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="separator"
                 aria-label="Insert horizontal rule"
                 @click="editor.chain().focus().setHorizontalRule().run()"
+                variant="ghost"
             >
                 <Minus class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="undo"
                 aria-label="Undo"
                 @click="editor.chain().focus().undo().run()"
+                variant="ghost"
             >
                 <Undo class="h-4 w-4" />
-            </ToggleGroupItem>
+            </Button>
 
-            <ToggleGroupItem
+            <Button
                 value="redo"
                 aria-label="Redo"
                 @click="editor.chain().focus().redo().run()"
+                variant="ghost"
             >
                 <Redo class="h-4 w-4" />
-            </ToggleGroupItem>
-        </ToggleGroup>
+            </Button>
+        </div>
+
         <editor-content :editor="editor" />
 
         <BubbleMenu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
             <div class="flex rounded-lg border border-gray-100 bg-white shadow-md">
-                <ToggleGroup type="multiple">
-                    <ToggleGroupItem
-                        value="bold"
-                        aria-label="Toggle bold"
-                        @click="editor.chain().focus().toggleBold().run()"
-                        :pressed="editor.isActive('bold')"
-                    >
-                        <Bold class="h-4 w-4" />
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                        value="italic"
-                        aria-label="Toggle italic"
-                        @click="editor.chain().focus().toggleItalic().run()"
-                        :pressed="editor.isActive('italic')"
-                    >
-                        <Italic class="h-4 w-4" />
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                        value="underline"
-                        aria-label="Toggle middleline"
-                        @click="editor.chain().focus().toggleUnderline().run()"
-                        :pressed="editor.isActive('underline')"
-                    >
-                        <Underline class="h-4 w-4" />
-                    </ToggleGroupItem>
-                </ToggleGroup>
+                <Button
+                    value="bold"
+                    aria-label="Toggle bold"
+                    @click="editor.chain().focus().toggleBold().run()"
+                    :variant="editor.isActive('bold') ? 'outline' : 'ghost'"
+                >
+                    <Bold class="h-4 w-4" />
+                </Button>
+                <Button
+                    value="italic"
+                    aria-label="Toggle italic"
+                    @click="editor.chain().focus().toggleItalic().run()"
+                    :variant="editor.isActive('italic') ? 'outline' : 'ghost'"
+                >
+                    <Italic class="h-4 w-4" />
+                </Button>
+                <Button
+                    value="underline"
+                    aria-label="Toggle middleline"
+                    @click="editor.chain().focus().toggleUnderline().run()"
+                    :variant="editor.isActive('underline') ? 'outline' : 'ghost'"
+                >
+                    <Underline class="h-4 w-4" />
+                </Button>
             </div>
         </BubbleMenu>
     </div>
@@ -151,6 +153,7 @@
         Heading1,
         Heading2,
         Heading3,
+        Image,
         Italic,
         List,
         ListOrdered,
@@ -170,7 +173,6 @@
         content: content,
         extensions: [StarterKit],
         onUpdate: ({ editor }) => {
-            console.log(editor.getHTML());
             html.value = editor.getHTML();
             changes.value = true;
         },
