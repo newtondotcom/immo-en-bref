@@ -165,20 +165,26 @@
         Undo,
     } from 'lucide-vue-next';
 
+    interface EditorProps {
+        init: string;
+    }
+    const props = defineProps<EditorProps>();
+
     const html: string = defineModel('html');
     const changes: boolean = defineModel('changes');
 
-    const content = '<p>I’m running Tiptap with Vue.js. 🎉</p>';
+    const content = 'Commencez à écrire ici...';
     const editor = useEditor({
-        content: content,
+        content: props.init || content,
         extensions: [StarterKit],
         onUpdate: ({ editor }) => {
             html.value = editor.getHTML();
+            window.sessionStorage.setItem('content', html.value);
             changes.value = true;
         },
     });
 
-    html.value = content;
+    html.value = props.init || content;
 
     onBeforeUnmount(() => {
         editor.value?.destroy();

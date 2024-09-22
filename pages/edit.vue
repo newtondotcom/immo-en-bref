@@ -3,7 +3,7 @@
         <EditorListArticles :articles :select :create />
 
         <div class="flex flex-row" v-if="currentArticle != ''">
-            <Editor v-model:html="html" v-model:changes="editionNonSaved" />
+            <Editor v-model:html="html" v-model:changes="editionNonSaved" :init />
 
             <Separator orientation="vertical" />
 
@@ -54,7 +54,7 @@
         </AlertDialog>
         <Button
             class="mx-1"
-            :disabled="!editionNonSaved"
+            :disabled="currentArticle == ''"
             @click="() => navigateTo('articles/' + currentArticle)"
             variant="ghost"
         >
@@ -80,6 +80,8 @@
     // names are not urlized
     const articles = ref([]);
 
+    const init = ref('');
+
     async function getArticles() {
         const data = await $fetch('/api/list');
         data.list.map((article) => articles.value.push({ name: unurlizeName(article.title) }));
@@ -89,8 +91,8 @@
         const data = await $fetch('/api/article', {
             query: { name: urlizeName(name) },
         });
-        html.value = data.article.content;
         currentArticle.value = urlizeName(name);
+        init.value = data.article.content;
     }
 
     async function create(name: string) {
