@@ -1,8 +1,6 @@
 <template>
     <Dialog>
-        <div
-            class="mx-2 my-2 min-h-screen min-w-[20vw] rounded-2xl border-2 border-blue-400 bg-blue-400 px-4 py-2"
-        >
+        <div class="mx-2 my-2 min-h-screen min-w-[20vw] px-4 py-2">
             <div class="flex flex-row items-center justify-between">
                 <div class="text-2xl font-bold">Articles</div>
                 <TooltipProvider>
@@ -19,7 +17,11 @@
                 </TooltipProvider>
             </div>
             <ul class="">
-                <li @click="select(article.name)" v-for="article in articles">
+                <li
+                    @click="select(article.name)"
+                    v-for="article in articles"
+                    class="cursor-pointer"
+                >
                     {{ capitalizeFirstLetter(article.name) }}
                 </li>
             </ul>
