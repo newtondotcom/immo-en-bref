@@ -21,7 +21,12 @@
     <div
         class="fixed bottom-0 left-0 right-0 z-10 flex h-[50px] items-center justify-center bg-secondary"
     >
-        <Button class="mx-1" :disabled="!editionNonSaved" variant="secondary">
+        <Button
+            class="mx-1"
+            :disabled="!editionNonSaved"
+            variant="secondary"
+            @click="currentArticle = ''"
+        >
             Annuler les modifications
         </Button>
         <Button class="mx-1" :disabled="!editionNonSaved" @click="save">
@@ -47,6 +52,14 @@
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
+        <Button
+            class="mx-1"
+            :disabled="!editionNonSaved"
+            @click="() => navigateTo('articles/' + currentArticle)"
+            variant="ghost"
+        >
+            <Eye class="h-4 w-4" />
+        </Button>
     </div>
 </template>
 
@@ -54,7 +67,7 @@
     import { Buffer } from 'buffer';
     import { useToast } from '@/components/ui/toast/use-toast';
     import { unurlizeName, urlizeName } from '~/lib/utils';
-    import { Save, Trash } from 'lucide-vue-next';
+    import { Eye, Save, Trash } from 'lucide-vue-next';
 
     const { toast } = useToast();
 
