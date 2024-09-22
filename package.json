@@ -12,6 +12,7 @@
         "format": "prettier --write ."
     },
     "dependencies": {
+        "@prisma/client": "^5.19.1",
         "@tiptap/pm": "^2.6.6",
         "@tiptap/starter-kit": "^2.6.6",
         "@tiptap/vue-3": "^2.6.6",
@@ -37,6 +38,7 @@
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.6",
         "pretty-quick": "^4.0.0",
+        "prisma": "^5.19.1",
         "typescript": "^5.5.4"
     }
 }
