@@ -69,6 +69,8 @@
     import { unurlizeName, urlizeName } from '~/lib/utils';
     import { Eye, Save, Trash } from 'lucide-vue-next';
 
+    definePageMeta({ layout: false });
+
     const { toast } = useToast();
 
     const editionNonSaved = ref(false);
