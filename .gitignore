@@ -27,3 +27,5 @@ bun.lockb
 package-lock.json
 
 articles/test*.html
+
+.data

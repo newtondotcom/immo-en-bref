@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         '/articles/**': { isr: true },
         edit: { ssr: false },
     },
-    modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+    modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/fonts'],
     shadcn: {
         prefix: '',
         componentDir: './components/ui',

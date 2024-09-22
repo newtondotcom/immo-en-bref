@@ -12,6 +12,7 @@
         "format": "prettier --write ."
     },
     "dependencies": {
+        "@nuxt/fonts": "^0.8.0",
         "@prisma/client": "^5.19.1",
         "@tiptap/pm": "^2.6.6",
         "@tiptap/starter-kit": "^2.6.6",
