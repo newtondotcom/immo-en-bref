@@ -16,3 +16,8 @@ model Article {
   date    DateTime @default(now())
   deleted_at DateTime?
 }
+
+model Nothing {
+  id Int @id @default(autoincrement())
+  name String
+}
