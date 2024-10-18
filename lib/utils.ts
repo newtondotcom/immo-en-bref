@@ -11,7 +11,7 @@ export function capitalizeFirstLetter(word: string) {
 }
 
 export function urlizeName(name: string) {
-    return name.toLowerCase().replace(/ /g, '~');
+    return name.replace(/ /g, '~');
 }
 
 export function unurlizeName(name: string) {
