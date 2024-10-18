@@ -47,7 +47,6 @@
                 date: article.date,
             }),
         );
-        console.log(articles.value);
     }
 
     getArticles();

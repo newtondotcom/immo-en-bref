@@ -1,8 +1,4 @@
-import fs from 'fs';
-
 import prisma from '../data/prisma';
-
-const articles_path = 'articles/';
 
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);
