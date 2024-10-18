@@ -1,7 +1,7 @@
 <template>
     <body class="bg-secondary">
         <header class="w-full px-4 md:px-0 md:w-[60%] mx-auto">
-            <div class="flex flex-row justify-between items-center py-20 mx-auto">
+            <div class="flex flex-row justify-between items-center mt-20 mx-auto">
                 <NuxtLink to="/" class="text-black dark:text-white text-3xl font-bold">
                     Immo-en-bref
                 </NuxtLink>
@@ -12,6 +12,7 @@
                     <BlogColorMode />
                 </div>
             </div>
+            <Separator class="mb-10" />
         </header>
         <div class="min-h-screen w-full px-4 md:px-0 md:w-[60%] mx-auto">
             <slot />
