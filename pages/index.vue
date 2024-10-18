@@ -14,9 +14,9 @@
         <div v-for="article in articles" :key="article.name">
             <NuxtLink
                 :to="'/articles/' + urlizeName(article.name)"
-                class="flex flex-row py-4 items-center justify-between"
+                class="flex flex-row py-4 items-center justify-between mx-auto"
             >
-                <div class="flex flex-col">
+                <div class="flex flex-col truncate">
                     <h3 class="text-md font-semibold leading-7 text-gray-500 dark:text-gray-100">
                         {{ new Date(article.date).toLocaleDateString('fr-FR') }}
                     </h3>
